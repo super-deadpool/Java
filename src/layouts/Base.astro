@@ -19,7 +19,7 @@ const { title, description = 'A deep Java curriculum for engineers who already k
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.svg`} type="image/svg+xml" />
     <script is:inline>
       // Applied before paint so the theme never flashes.
       const stored = localStorage.getItem('theme');
@@ -33,7 +33,7 @@ const { title, description = 'A deep Java curriculum for engineers who already k
      <a class="brand" href={import.meta.env.BASE_URL}> <span class="mark">JVM</span> Java for C++ Engineers </a>
       <nav>
       <a href={`${import.meta.env.BASE_URL}#roadmap`}>Roadmap</a> 
-      <a href={`${import.meta.env.BASE_URL}modules/1-1-the-java-platform`}>Start</a>
+      <a href={`${import.meta.env.BASE_URL}/modules/1-1-the-java-platform`}>Start</a>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle colour theme">◑</button>
       </nav>
     </header>

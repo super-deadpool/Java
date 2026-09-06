@@ -42,6 +42,6 @@ const sections = headings.filter((h) => h.depth === 2);
     </article>
 
     <nav class="pager">
-{prev ? ( <a href={`${import.meta.env.BASE_URL}modules/${prev.id}`}> <div class="dir">Previous</div> <div class="name">{prev.data.title}</div> </a> ) : ( <a href={import.meta.env.BASE_URL}> <div class="dir">Back</div> <div class="name">Curriculum overview</div> </a> )} {next ? ( <a class="next" href={`${import.meta.env.BASE_URL}modules/${next.id}`}> <div class="dir">Next</div> <div class="name">{next.data.title}</div> </a> ) : ( <a class="next" href={`${import.meta.env.BASE_URL}#roadmap`}> <div class="dir">Next</div> <div class="name">Not written yet — ask for the next module</div> </a> )}    </nav>
+{prev ? ( <a href={`${import.meta.env.BASE_URL}/modules/${prev.id}`}> <div class="dir">Previous</div> <div class="name">{prev.data.title}</div> </a> ) : ( <a href={import.meta.env.BASE_URL}> <div class="dir">Back</div> <div class="name">Curriculum overview</div> </a> )} {next ? ( <a class="next" href={`${import.meta.env.BASE_URL}/modules/${next.id}`}> <div class="dir">Next</div> <div class="name">{next.data.title}</div> </a> ) : ( <a class="next" href={`${import.meta.env.BASE_URL}#roadmap`}> <div class="dir">Next</div> <div class="name">Not written yet — ask for the next module</div> </a> )}    </nav>
   </div>
 </Base>

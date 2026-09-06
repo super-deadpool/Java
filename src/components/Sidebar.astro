@@ -23,7 +23,7 @@ const upcoming = phases.filter((p) => !byPhase.has(p.n));
       <ol>
         {(byPhase.get(phase.n) ?? []).map((m) => (
           <li>
-         <a href={`${import.meta.env.BASE_URL}modules/${m.id}`} aria-current={m.id === current ? 'page' : undefined}> <span class="num">{phase.n}.{m.data.order}</span>{m.data.title} </a>
+         <a href={`${import.meta.env.BASE_URL}/modules/${m.id}`} aria-current={m.id === current ? 'page' : undefined}> <span class="num">{phase.n}.{m.data.order}</span>{m.data.title} </a>
           </li>
         ))}
       </ol>
