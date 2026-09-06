@@ -23,9 +23,7 @@ const upcoming = phases.filter((p) => !byPhase.has(p.n));
       <ol>
         {(byPhase.get(phase.n) ?? []).map((m) => (
           <li>
-            <a href={`/modules/${m.id}`} aria-current={m.id === current ? 'page' : undefined}>
-              <span class="num">{phase.n}.{m.data.order}</span>{m.data.title}
-            </a>
+         <a href={`${import.meta.env.BASE_URL}modules/${m.id}`} aria-current={m.id === current ? 'page' : undefined}> <span class="num">{phase.n}.{m.data.order}</span>{m.data.title} </a>
           </li>
         ))}
       </ol>
@@ -35,7 +33,7 @@ const upcoming = phases.filter((p) => !byPhase.has(p.n));
   <h2>Ahead</h2>
   <ol>
     {upcoming.map((p) => (
-      <li><a href={`/#phase-${p.n}`}><span class="num">{p.n}</span>{p.title}</a></li>
+     <li> <a href={`${import.meta.env.BASE_URL}#phase-${p.n}`}> <span class="num">{p.n}</span>{p.title} </a> </li>
     ))}
   </ol>
 </aside>

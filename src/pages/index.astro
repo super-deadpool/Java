@@ -20,8 +20,8 @@ const first = modules[0];
         the interview questions that follow.
       </p>
       <p class="cta">
-        <a class="btn primary" href={`/modules/${first.id}`}>Start Phase 1</a>
-        <a class="btn ghost" href="#roadmap">See the full roadmap</a>
+       <a class="btn primary" href={`${import.meta.env.BASE_URL}modules/${first.id}`}> Start Phase 1 </a> 
+       <a class="btn ghost" href={`${import.meta.env.BASE_URL}#roadmap`}> See the full roadmap </a>
       </p>
     </section>
 
@@ -58,9 +58,7 @@ const first = modules[0];
             <p>{p.blurb}</p>
             <ul>{p.topics.slice(0, 5).map((t) => <li>{t}</li>)}</ul>
             {written.length > 0 ? (
-              <a class="ready" href={`/modules/${written[0].id}`}>
-                {written.length} module{written.length === 1 ? '' : 's'} ready →
-              </a>
+              <a class="ready" href={`${import.meta.env.BASE_URL}modules/${written[0].id}`}> {written.length} module{written.length === 1 ? '' : 's'} ready → </a>
             ) : (
               <span class="soon">Not written yet</span>
             )}
