@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import { phases } from '../data/curriculum';
+
+interface Props { current?: string }
+const { current } = Astro.props;
+
+const modules = (await getCollection('modules')).sort(
+  (a, b) => a.data.phase - b.data.phase || a.data.order - b.data.order,
+);
+
+const byPhase = new Map<number, typeof modules>();
+for (const m of modules) {
+  byPhase.set(m.data.phase, [...(byPhase.get(m.data.phase) ?? []), m]);
+}
+const writtenPhases = phases.filter((p) => byPhase.has(p.n));
+const upcoming = phases.filter((p) => !byPhase.has(p.n));
+---
+<aside class="sidebar">
+  {writtenPhases.map((phase) => (
+    <>
+      <h2>Phase {phase.n} · {phase.title}</h2>
+      <ol>
+        {(byPhase.get(phase.n) ?? []).map((m) => (
+          <li>
+            <a href={`/modules/${m.id}`} aria-current={m.id === current ? 'page' : undefined}>
+              <span class="num">{phase.n}.{m.data.order}</span>{m.data.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </>
+  ))}
+
+  <h2>Ahead</h2>
+  <ol>
+    {upcoming.map((p) => (
+      <li><a href={`/#phase-${p.n}`}><span class="num">{p.n}</span>{p.title}</a></li>
+    ))}
+  </ol>
+</aside>

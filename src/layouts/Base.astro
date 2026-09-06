@@ -1,0 +1,61 @@
+---
+import '../styles/global.css';
+import Sidebar from '../components/Sidebar.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Slug of the current module, used to highlight the sidebar. */
+  current?: string;
+  /** Home page renders without the module sidebar. */
+  bare?: boolean;
+}
+
+const { title, description = 'A deep Java curriculum for engineers who already know C++.', current, bare = false } = Astro.props;
+---
+<html lang="en" >
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Applied before paint so the theme never flashes.
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark' || stored === 'light') {
+        document.documentElement.dataset.theme = stored;
+      }
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/"><span class="mark">JVM</span> Java for C++ Engineers</a>
+      <nav>
+        <a href="/#roadmap">Roadmap</a>
+        <a href="/modules/1-1-the-java-platform">Start</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle colour theme">◑</button>
+      </nav>
+    </header>
+
+    {bare ? (
+      <main><slot /></main>
+    ) : (
+      <div class="layout">
+        <Sidebar current={current} />
+        <main><slot /></main>
+      </div>
+    )}
+
+    <script is:inline>
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const currentDark = root.dataset.theme ? root.dataset.theme === 'dark' : systemDark;
+        const next = currentDark ? 'light' : 'dark';
+        root.dataset.theme = next;
+        localStorage.setItem('theme', next);
+      });
+    </script>
+  </body>
+</html>

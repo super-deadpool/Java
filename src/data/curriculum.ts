@@ -1,0 +1,68 @@
+export type Phase = {
+  n: number;
+  title: string;
+  blurb: string;
+  /** Topics this phase must cover, in teaching order. */
+  topics: string[];
+};
+
+export const phases: Phase[] = [
+  { n: 1, title: 'Java Language Fundamentals', blurb: 'The platform, the compilation pipeline, types, variables, and strings — from a C++ reader’s point of view.',
+    topics: ['JDK / JRE / JVM', 'javac → bytecode → class loading → JIT', 'HotSpot and LTS releases', 'primitives vs reference types', 'wrappers, autoboxing, promotion', 'variables, initialization, lifetime', 'String immutability, the pool, StringBuilder'] },
+  { n: 2, title: 'Object-Oriented Java', blurb: 'Classes, object identity, construction order, and inheritance taught far deeper than a tutorial would.',
+    topics: ['constructors and constructor chaining', 'initialization order', 'extends, super, this', 'overriding vs overloading vs hiding', 'dynamic dispatch and vtables', 'fields are not polymorphic', 'access modifiers and protected semantics', 'final classes/methods/fields', 'covariant returns', 'upcasting, downcasting, instanceof patterns'] },
+  { n: 3, title: 'Object Class and Object Contracts', blurb: 'The root of every hierarchy, and the equals/hashCode contract that collections silently depend on.',
+    topics: ['toString, getClass, clone, finalize history', 'reference vs logical equality', 'reflexive/symmetric/transitive/consistent', 'hashCode contract', 'mutable keys and lost entries'] },
+  { n: 4, title: 'Abstract Classes and Interfaces', blurb: 'Interface evolution, default methods, and how to actually choose between the three shapes.',
+    topics: ['abstract classes and methods', 'default / static / private interface methods', 'diamond resolution and Interface.super', 'functional and marker interfaces', 'architectural decision-making'] },
+  { n: 5, title: 'Encapsulation and Java Design', blurb: 'Immutability, defensive copying, records, and why composition usually beats inheritance.',
+    topics: ['access modifiers in practice', 'immutable classes', 'defensive copying', 'records', 'composition and delegation', 'redesigning bad inheritance'] },
+  { n: 6, title: 'Generics', blurb: 'Erasure, wildcards, PECS — and precisely which C++ template habits do not survive the trip.',
+    topics: ['generic classes/methods/interfaces', 'bounded type parameters', '? extends / ? super / PECS', 'type erasure and bridge methods', 'heap pollution, reifiable types', 'generic arrays, varargs'] },
+  { n: 7, title: 'Exceptions', blurb: 'The Throwable hierarchy, checked exceptions as a design philosophy, and try-with-resources.',
+    topics: ['Error vs Exception vs RuntimeException', 'checked vs unchecked', 'try/catch/finally traps', 'AutoCloseable, suppressed exceptions', 'chaining, multi-catch, custom exceptions'] },
+  { n: 8, title: 'Collections', blurb: 'Every major collection by internal data structure, complexity, ordering, null behaviour, and thread safety.',
+    topics: ['Iterable/Collection/List/Set/Queue/Deque/Map', 'ArrayList, LinkedList, Vector, Stack', 'HashSet, LinkedHashSet, TreeSet', 'HashMap internals: buckets, resize, treeification', 'LinkedHashMap, TreeMap, Hashtable', 'PriorityQueue, ArrayDeque, EnumSet, EnumMap'] },
+  { n: 9, title: 'Comparison and Ordering', blurb: 'Comparable, Comparator, and what "consistent with equals" costs when you ignore it.',
+    topics: ['natural vs custom ordering', 'comparator composition', 'stable sorting', 'contract violations at runtime'] },
+  { n: 10, title: 'Iterators', blurb: 'Fail-fast is a debugging aid, not a guarantee. What it does and does not promise.',
+    topics: ['Iterator, ListIterator, Iterable', 'enhanced for desugaring', 'ConcurrentModificationException', 'weakly consistent iterators'] },
+  { n: 11, title: 'Functional Java', blurb: 'Lambdas as invokedynamic call sites, closures, capture, and effectively final.',
+    topics: ['functional interfaces', 'lambdas vs anonymous classes', 'captured variables', 'method references', 'the java.util.function zoo', 'invokedynamic and LambdaMetafactory'] },
+  { n: 12, title: 'Streams', blurb: 'What a pipeline actually is, why laziness matters, and when a plain loop is the better answer.',
+    topics: ['creation, intermediate, terminal ops', 'laziness and short-circuiting', 'map/filter/flatMap/reduce/collect', 'groupingBy, partitioningBy', 'primitive streams', 'parallel streams and when they lose'] },
+  { n: 13, title: 'Optional', blurb: 'A return-type tool, not a null replacement. Where it helps and where it is misuse.',
+    topics: ['map, flatMap, filter', 'orElse vs orElseGet vs orElseThrow', 'ifPresentOrElse', 'Optional fields and parameters as antipatterns'] },
+  { n: 14, title: 'Modern Java', blurb: 'var, records, sealed types, pattern matching, switch expressions — with the version each landed in.',
+    topics: ['var (10)', 'text blocks (15)', 'records (16)', 'sealed classes (17)', 'pattern matching for switch (21)', 'sequenced collections (21)', 'immutable collection factories (9)'] },
+  { n: 15, title: 'Enums', blurb: 'Why a Java enum is a full class and what that unlocks over integer constants.',
+    topics: ['fields, constructors, methods', 'constant-specific bodies', 'EnumSet / EnumMap internals', 'enum singletons', 'switch over enums'] },
+  { n: 16, title: 'Nested Classes', blurb: 'Static nested vs inner vs local vs anonymous, and the enclosing-instance reference that leaks memory.',
+    topics: ['the synthetic this$0 field', 'capture rules', 'when each shape is right'] },
+  { n: 17, title: 'Annotations', blurb: 'Metadata, retention policies, and how frameworks like Spring turn them into behaviour.',
+    topics: ['built-in and custom annotations', '@Retention, @Target', 'runtime reflection over annotations', 'annotation processing at compile time'] },
+  { n: 18, title: 'Reflection', blurb: 'The Class object, dynamic invocation, its cost, and why frameworks depend on it.',
+    topics: ['Class, Constructor, Method, Field', 'setAccessible and strong encapsulation', 'performance characteristics', 'MethodHandles as the modern path'] },
+  { n: 19, title: 'I/O and NIO', blurb: 'Streams vs readers, buffering, the Files/Path API, channels, and memory-mapped files.',
+    topics: ['InputStream/OutputStream vs Reader/Writer', 'buffering and why it matters', 'Files, Path, try-with-resources', 'channels and ByteBuffer', 'memory-mapped files'] },
+  { n: 20, title: 'Serialization', blurb: 'How Java serialization works, why serialVersionUID exists, and why deserialization is a security topic.',
+    topics: ['Serializable, transient', 'serialVersionUID', 'gadget chains and deserialization attacks', 'JSON/protobuf alternatives'] },
+  { n: 21, title: 'Date and Time', blurb: 'java.time done properly, and exactly what was broken about Date and Calendar.',
+    topics: ['LocalDate/LocalTime/LocalDateTime', 'Instant vs ZonedDateTime', 'Duration vs Period', 'ZoneId, DateTimeFormatter', 'mutability and thread-safety of the old API'] },
+  { n: 22, title: 'JVM Internals', blurb: 'Class loading, runtime data areas, the execution engine, and what the JIT does to your code.',
+    topics: ['class loader subsystem and parent delegation', 'loading → linking → initialization', 'heap, stacks, metaspace, PC register', 'object headers and references', 'interpretation → profiling → C1/C2', 'inlining, escape analysis, deoptimization'] },
+  { n: 23, title: 'Garbage Collection', blurb: 'Reachability, generations, modern collectors, and how a GC language still leaks memory.',
+    topics: ['GC roots and reachability', 'generational hypothesis', 'minor/major/full GC', 'G1, ZGC, Shenandoah', 'allocation rate and promotion', 'weak/soft/phantom references', 'real-world leak shapes'] },
+  { n: 24, title: 'Concurrency', blurb: 'From Thread to virtual threads, with the executor and synchronizer toolbox in between.',
+    topics: ['Thread, Runnable, Callable, Future', 'ExecutorService and pool sizing', 'synchronized, monitors, volatile', 'atomics and CAS', 'ReentrantLock, ReadWriteLock, StampedLock', 'latches, barriers, semaphores, phasers', 'BlockingQueue, ThreadLocal', 'CompletableFuture, ForkJoinPool, work stealing', 'virtual threads (21)'] },
+  { n: 25, title: 'Java Memory Model', blurb: 'Happens-before as the only correct way to reason about visibility and ordering.',
+    topics: ['visibility, atomicity, ordering', 'data race vs race condition', 'happens-before edges', 'volatile and monitor semantics', 'final field freeze semantics', 'safe publication', 'double-checked locking'] },
+  { n: 26, title: 'Performance', blurb: 'Where Java time actually goes: allocation, boxing, GC, contention, cache lines — and how to measure.',
+    topics: ['allocation and escape analysis', 'boxing costs', 'cache locality vs pointer chasing', 'lock contention and false sharing', 'JFR and async-profiler', 'JMH and benchmarking mistakes'] },
+  { n: 27, title: 'Design Patterns in Java', blurb: 'Patterns that still earn their keep, each with its modern-Java and Spring counterpart.',
+    topics: ['Singleton, Factory, Abstract Factory, Builder', 'Strategy, Observer, Template Method', 'Adapter, Decorator, Proxy', 'Command, Chain of Responsibility'] },
+  { n: 28, title: 'Interview Preparation', blurb: 'Six question levels, scenario drills, trick-question mode, and the final mastery exam.',
+    topics: ['L1 fundamentals → L6 production debugging', '30-second / 2-minute / deep-dive answers', 'likely follow-ups', 'scenario-based debugging', 'the 8-part mastery exam'] },
+];
+
+export const phaseByNumber = new Map(phases.map((p) => [p.n, p]));

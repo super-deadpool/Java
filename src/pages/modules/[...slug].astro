@@ -1,0 +1,69 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { phaseByNumber } from '../../data/curriculum';
+
+export async function getStaticPaths() {
+  const modules = (await getCollection('modules')).sort(
+    (a, b) => a.data.phase - b.data.phase || a.data.order - b.data.order,
+  );
+  return modules.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: modules[i - 1] ?? null, next: modules[i + 1] ?? null },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content, headings } = await render(entry);
+const phase = phaseByNumber.get(entry.data.phase);
+const sections = headings.filter((h) => h.depth === 2);
+---
+<Base title={`${entry.data.title} — Java for C++ Engineers`} description={entry.data.summary} current={entry.id}>
+  <div class="wrap">
+    <p class="eyebrow">Phase {entry.data.phase}.{entry.data.order} · {phase?.title}</p>
+    <h1 class="module-title">{entry.data.title}</h1>
+    <p class="lede">{entry.data.summary}</p>
+    <p class="meta">
+      {entry.data.minutes && <span class="tag">{entry.data.minutes} min</span>}
+      {entry.data.tags.map((t) => <span class="tag">{t}</span>)}
+    </p>
+
+    {sections.length > 2 && (
+      <nav class="toc">
+        <h2>In this module</h2>
+        <ol>
+          {sections.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+        </ol>
+      </nav>
+    )}
+
+    <article class="prose">
+      <Content />
+    </article>
+
+    <nav class="pager">
+      {prev ? (
+        <a href={`/modules/${prev.id}`}>
+          <div class="dir">Previous</div>
+          <div class="name">{prev.data.title}</div>
+        </a>
+      ) : (
+        <a href="/">
+          <div class="dir">Back</div>
+          <div class="name">Curriculum overview</div>
+        </a>
+      )}
+      {next ? (
+        <a class="next" href={`/modules/${next.id}`}>
+          <div class="dir">Next</div>
+          <div class="name">{next.data.title}</div>
+        </a>
+      ) : (
+        <a class="next" href="/#roadmap">
+          <div class="dir">Next</div>
+          <div class="name">Not written yet — ask for the next module</div>
+        </a>
+      )}
+    </nav>
+  </div>
+</Base>

@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { phases } from '../data/curriculum';
+
+const modules = (await getCollection('modules')).sort(
+  (a, b) => a.data.phase - b.data.phase || a.data.order - b.data.order,
+);
+const byPhase = new Map<number, typeof modules>();
+for (const m of modules) byPhase.set(m.data.phase, [...(byPhase.get(m.data.phase) ?? []), m]);
+const first = modules[0];
+---
+<Base title="Java for C++ Engineers" bare>
+  <div class="wide">
+    <section class="hero">
+      <h1>Java, taught to someone who already knows C++.</h1>
+      <p>
+        No “a class is a blueprint for an object.” This is a 28-phase curriculum that goes
+        concept → why it exists → what the JVM actually does → how it differs from C++ → the traps →
+        the interview questions that follow.
+      </p>
+      <p class="cta">
+        <a class="btn primary" href={`/modules/${first.id}`}>Start Phase 1</a>
+        <a class="btn ghost" href="#roadmap">See the full roadmap</a>
+      </p>
+    </section>
+
+    <div class="section-head">
+      <h2>How this is meant to be used</h2>
+      <p>One module at a time. Each ends with a mastery check whose answers are deliberately not on the page.</p>
+    </div>
+    <div class="phase-grid">
+      <div class="phase-card">
+        <h3>Read the module</h3>
+        <p>Every module follows the same 15-section shape: concept, why, mental model, syntax, minimal and realistic examples, what happens internally, C++ comparison, edge cases, mistakes, interview questions, follow-ups, exercise, output prediction, mastery check.</p>
+      </div>
+      <div class="phase-card">
+        <h3>Attempt before checking</h3>
+        <p>Output-prediction snippets and mastery questions have no answers printed. Write your answer down, then ask for the walkthrough — being wrong on paper is the whole mechanism.</p>
+      </div>
+      <div class="phase-card">
+        <h3>Watch the C++ callouts</h3>
+        <p>Blue blocks mark places where a correct C++ instinct produces a wrong Java answer: dispatch rules, <code>final</code>, generics, destruction, memory ordering.</p>
+      </div>
+    </div>
+
+    <div class="section-head" id="roadmap">
+      <h2>The roadmap — 28 phases</h2>
+      <p>{modules.length} module{modules.length === 1 ? '' : 's'} written so far. Phases fill in as you work through them.</p>
+    </div>
+    <div class="phase-grid">
+      {phases.map((p) => {
+        const written = byPhase.get(p.n) ?? [];
+        return (
+          <div class="phase-card" id={`phase-${p.n}`}>
+            <span class="n">Phase {p.n}</span>
+            <h3>{p.title}</h3>
+            <p>{p.blurb}</p>
+            <ul>{p.topics.slice(0, 5).map((t) => <li>{t}</li>)}</ul>
+            {written.length > 0 ? (
+              <a class="ready" href={`/modules/${written[0].id}`}>
+                {written.length} module{written.length === 1 ? '' : 's'} ready →
+              </a>
+            ) : (
+              <span class="soon">Not written yet</span>
+            )}
+          </div>
+        );
+      })}
+    </div>
+
+    <footer class="site">
+      Built with Astro · content is static, so the whole thing is prerendered HTML.
+    </footer>
+  </div>
+</Base>
