@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://super-deadpool.github.io',
   markdown: {
     shikiConfig: {
       themes: { light: 'github-light', dark: 'github-dark-dimmed' },
